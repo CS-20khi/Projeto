@@ -28,7 +28,7 @@ export class ServicosComponent implements OnInit {
     },
     {
       imageUrl: 'assets/img/odonto.jpg',
-      icon: 'bi-tooth',
+      icon: 'bi-plus-lg',
       title: 'Odontologia',
       link: '/marcacao'
     }
