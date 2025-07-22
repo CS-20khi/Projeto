@@ -1,0 +1,22 @@
+<section class="py-5" style="background-color: #e6ffe6;">
+  <div class="container container-lg">
+    <h2 class="text-center display-5 fw-bold text-success mb-5">Nossos Principais Serviços</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="col" *ngFor="let service of services">
+        <div class="card h-100 shadow-sm border-0 service-card">
+          <img [src]="service.imageUrl" class="card-img-top service-image" [alt]="service.title">
+          <div class="card-body text-center">
+            <i class="bi {{ service.icon }} text-success mb-3 service-icon" style="font-size: 4rem;"></i>
+            <h5 class="card-title fw-bold text-dark">{{ service.title }}</h5>
+            
+            <div class="mt-4">
+              <a [routerLink]="service.link" class="btn btn-success btn-sm">
+                Agendar <i class="bi bi-calendar-plus ms-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

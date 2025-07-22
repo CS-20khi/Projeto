@@ -1,0 +1,37 @@
+.login-card-container {
+  max-width: 900px;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.login-image-column {
+  background-color: #3d6e48;
+  color: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login-illustration {
+  max-width: 80%;
+  height: auto;
+}
+
+.login-card-container img {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  object-fit: cover;
+}
+
+@media (max-width: 767.98px) { 
+  .login-card-container .p-md-5 { 
+    padding: 2rem !important; 
+  }
+  .login-image-column {
+    display: none !important; 
+  }
+}

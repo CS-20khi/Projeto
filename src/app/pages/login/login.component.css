@@ -1,0 +1,8 @@
+.login-page-section {
+  min-height: calc(100vh - var(--header-height, 0px) - var(--footer-height, 0px));
+  min-height: 100vh;
+  background-color: #f8f9fa !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

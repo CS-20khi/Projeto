@@ -1,0 +1,27 @@
+.service-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.service-icon {
+  font-size: 4rem;
+  color: #28a745;
+}
+
+.service-card .card-title {
+  font-size: 1.5rem;
+}
+
+.service-card .card-text {
+  font-size: 0.95rem;
+}
+
+.service-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

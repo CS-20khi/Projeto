@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success py-3 shadow-sm">
+  <div class="container-fluid container-lg d-flex justify-content-between align-items-center">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <span class="fw-bold fs-5 d-none d-md-block">SDM-Sistema Digital de Marcação</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-white fs-5" aria-current="page" routerLink="/home" routerLinkActive="fw-bold">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fs-5" routerLink="/marcacao" routerLinkActive="fw-bold">Marcação</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fs-5" routerLink="/login" routerLinkActive="fw-bold">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white fs-5" routerLink="/perfil" routerLinkActive="fw-bold">Perfil</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="d-none d-lg-block">
+        <button class="btn btn-outline-light btn-sm" (click)="logout()">
+            Logout <i class="bi bi-box-arrow-right ms-1"></i>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-lg-none">
+            <li class="nav-item" *ngIf="isUserLoggedIn()">
+                <button class="btn btn-outline-light btn-sm mt-2" (click)="logout()">
+                    Logout <i class="bi bi-box-arrow-right ms-1"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>

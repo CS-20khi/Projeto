@@ -1,0 +1,22 @@
+<div class="card text-center" style="max-width: 400px; margin: 50px auto; position: relative; z-index: 1050;">
+  <div class="card-header bg-success text-white">
+    Confirmação de Agendamento
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Agendamento Confirmado!</h5>
+    <p class="card-text">Seu agendamento foi realizado com sucesso. Obrigado!</p>
+    <div *ngIf="dadosAgendamento">
+      <p><strong>Nome:</strong> {{ dadosAgendamento.nomeCompleto }}</p>
+      <p><strong>Especialidade:</strong> {{ dadosAgendamento.especialidade }}</p>
+      <p><strong>Médico:</strong> {{ dadosAgendamento.medico }}</p>
+      <p><strong>Hospital:</strong> {{ dadosAgendamento.hospital }}</p>
+      <p><strong>Data:</strong> {{ dadosAgendamento.dataAgendamento | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Hora:</strong> {{ dadosAgendamento.horaMarcada }}</p>
+      <p><strong>Status:</strong> {{ dadosAgendamento.status }}</p>
+    </div>
+    <button class="btn btn-success mt-3" (click)="irParaPerfil()">Ver Meus Agendamentos</button>
+  </div>
+  <div class="card-footer text-muted">
+    Aguardamos você!
+  </div>
+</div>

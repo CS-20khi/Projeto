@@ -1,0 +1,293 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <div class="card shadow-lg p-4">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Agendamento de Consulta</h2>
+
+          <form #agendamentoForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="nomeCompleto" class="form-label">Nome Completo
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="nomeCompleto"
+                name="nomeCompleto"
+                [(ngModel)]="formData.nomeCompleto"
+                pattern="[A-Za-z\s]+"
+                required
+                #nomeCompleto="ngModel"
+              >
+              <div *ngIf="nomeCompleto.invalid && (nomeCompleto.dirty || nomeCompleto.touched)" class="text-danger small-text">
+                <div *ngIf="nomeCompleto.errors?.['required']">Nome Completo é obrigatório.</div>
+                <div *ngIf="nomeCompleto.errors?.['pattern']">Nome Completo deve conter apenas letras e espaços.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="cpf" class="form-label">CPF
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="cpf"
+                name="cpf"
+                [(ngModel)]="formData.cpf"
+                pattern="[0-9]{11}"
+                maxlength="11"
+                required
+                #cpf="ngModel"
+              >
+              <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)" class="text-danger small-text">
+                <div *ngIf="cpf.errors?.['required']">CPF é obrigatório.</div>
+                <div *ngIf="cpf.errors?.['pattern']">CPF deve conter 11 números.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="dataNascimento" class="form-label">Data de Nascimento
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <input
+                type="date"
+                class="form-control form-control-sm"
+                id="dataNascimento"
+                name="dataNascimento"
+                [(ngModel)]="formData.dataNascimento"
+                required
+                #dataNascimento="ngModel"
+                [max]="getMaxDateHtml" >
+              <div *ngIf="dataNascimento.invalid && (dataNascimento.dirty || dataNascimento.touched)" class="text-danger small-text">
+                <div *ngIf="dataNascimento.errors?.['required']">Data de Nascimento é obrigatória.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="endereco" class="form-label">Endereço
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="endereco"
+                name="endereco"
+                [(ngModel)]="formData.endereco"
+                required
+                #endereco="ngModel"
+              >
+              <div *ngIf="endereco.invalid && (endereco.dirty || endereco.touched)" class="text-danger small-text">
+                <div *ngIf="endereco.errors?.['required']">Endereço é obrigatório.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="telefone" class="form-label">Telefone
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                id="telefone"
+                name="telefone"
+                [(ngModel)]="formData.telefone"
+                pattern="^\(\d{2}\)\s\d{4,5}-\d{4}$"
+                placeholder="(XX) XXXX-XXXX ou (XX) XXXXX-XXXX"
+                maxlength="15" required
+                #telefone="ngModel"
+              >
+              <div *ngIf="telefone.invalid && (telefone.dirty || telefone.touched)" class="text-danger small-text">
+                <div *ngIf="telefone.errors?.['required']">Telefone é obrigatório.</div>
+                <div *ngIf="telefone.errors?.['pattern']">Telefone inválido. Use o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <input
+                type="email"
+                class="form-control form-control-sm"
+                id="email"
+                name="email"
+                [(ngModel)]="formData.email"
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$"
+                required
+                #email="ngModel"
+              >
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger small-text">
+                <div *ngIf="email.errors?.['required']">Email é obrigatório.</div>
+                <div *ngIf="email.errors?.['pattern']">Email inválido.</div>
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label for="especialidade" class="form-label">Especialidade
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="especialidade"
+                name="especialidade"
+                [(ngModel)]="formData.especialidade"
+                required
+                #especialidade="ngModel"
+                (change)="onEspecialidadeChange()"
+              >
+                <option value="" disabled selected>Selecione uma especialidade...</option>
+                <option value="Clinico Geral">Clinico Geral</option>
+                <option value="Cardiologista">Cardiologista</option>
+                <option value="Exames de sangue">Exames de sangue</option>
+                <option value="Ultrassonografia">Ultrassonografia</option>
+                <option value="Ortodontia">Ortodontia</option>
+                <option value="Clinico Geral Odontologia">Clinico Geral Odontologia</option>
+              </select>
+              <div *ngIf="especialidade.invalid && (especialidade.dirty || especialidade.touched)" class="text-danger small-text">
+                <div *ngIf="especialidade.errors?.['required']">Especialidade é obrigatória.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="medico" class="form-label">Médico
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="medico"
+                name="medico"
+                [(ngModel)]="formData.medico"
+                required
+                #medico="ngModel"
+                [disabled]="!formData.especialidade"
+              >
+                <option value="" disabled selected>Selecione um médico...</option>
+                <option *ngFor="let medico of medicosDisponiveis" [value]="medico.id">{{ medico.nome }}</option>
+              </select>
+              <div *ngIf="medico.invalid && (medico.dirty || medico.touched)" class="text-danger small-text">
+                <div *ngIf="medico.errors?.['required']">Médico é obrigatório.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="hospital" class="form-label">Hospital Disponível
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="hospital"
+                name="hospital"
+                [(ngModel)]="formData.hospital"
+                required
+                #hospital="ngModel"
+              >
+                <option value="" disabled selected>Selecione um hospital...</option>
+                <option value="Aristides Maltez">Aristides Maltez</option>
+                <option value="Irmã Dulce">Irmã Dulce</option>
+                <option value="AUO- Unidade de Atendimento Odontologico">AUO- Unidade de Atendimento Odontologico</option>
+              </select>
+              <div *ngIf="hospital.invalid && (hospital.dirty || hospital.touched)" class="text-danger small-text">
+                <div *ngIf="hospital.errors?.['required']">Hospital é obrigatório.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="hora" class="form-label">Hora do Agendamento
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <select
+                class="form-select form-select-sm"
+                id="hora"
+                name="horaAgendamento" [(ngModel)]="formData.horaAgendamento"
+                required
+                #horaAgendamento="ngModel"
+              >
+                <option value="" disabled selected>Selecione a hora...</option>
+                <option *ngFor="let hora of horasDisponiveis" [value]="hora">{{ hora }}</option>
+              </select>
+              <div *ngIf="horaAgendamento.invalid && (horaAgendamento.dirty || horaAgendamento.touched)" class="text-danger small-text">
+                <div *ngIf="horaAgendamento.errors?.['required']">Hora do Agendamento é obrigatória.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="dataConsulta" class="form-label">Data da Consulta/Exame
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Campo obrigatório"></i>
+              </label>
+              <input
+                type="date"
+                class="form-control form-control-sm"
+                id="dataConsulta"
+                name="dataConsulta"
+                [(ngModel)]="formData.dataConsulta"
+                required
+                #dataConsulta="ngModel"
+                [min]="getTodayDateHtml()" > <div *ngIf="dataConsulta.invalid && (dataConsulta.dirty || dataConsulta.touched)" class="text-danger small-text">
+                <div *ngIf="dataConsulta.errors?.['required']">Data da Consulta/Exame é obrigatória.</div>
+              </div>
+            </div>
+
+            ---
+            <div class="form-check mb-4">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="termoAutorizacao"
+                name="termoAutorizacao"
+                [(ngModel)]="formData.termoAutorizacao"
+                required
+                #termoAutorizacao="ngModel"
+              >
+              <label class="form-check-label" for="termoAutorizacao">
+                Li e concordo com o
+                <a href="/link-para-seus-termos" target="_blank" class="text-success fw-bold">Termo de Autorização para Tratamento de Dados</a>
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="É obrigatório aceitar o termo para prosseguir."></i>
+              </label>
+              <div *ngIf="termoAutorizacao.invalid && (termoAutorizacao.dirty || termoAutorizacao.touched)" class="text-danger small-text">
+                <div *ngIf="termoAutorizacao.errors?.['required']">Você deve aceitar o Termo de Autorização para Tratamento de Dados para prosseguir.</div>
+              </div>
+            </div>
+
+            <div class="mb-4 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="confirmarAgendamento"
+                name="confirmarAgendamento"
+                [(ngModel)]="formData.confirmarAgendamento"
+                required
+                #confirmarAgendamento="ngModel"
+              >
+              <label class="form-check-label" for="confirmarAgendamento">Confirmo os dados para agendamento
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle-fill text-muted ms-1 small-icon" title="Você deve confirmar os dados preenchidos."></i>
+              </label>
+              <div *ngIf="confirmarAgendamento.invalid && (confirmarAgendamento.dirty || confirmarAgendamento.touched)" class="text-danger small-text">
+                <div *ngIf="confirmarAgendamento.errors?.['required']">Você deve confirmar os dados para prosseguir.</div>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg" [disabled]="!agendamentoForm.valid">Agendar Consulta</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

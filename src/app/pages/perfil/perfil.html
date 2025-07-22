@@ -1,0 +1,76 @@
+<div class="container my-5">
+  <h2 class="text-center mb-4">Meus Agendamentos</h2>
+
+  <div *ngIf="agendamentos.length === 0" class="alert alert-info text-center" role="alert">
+    Você ainda não possui agendamentos.
+    <a routerLink="/marcacao" class="btn btn-link">Agendar agora!</a>
+  </div>
+
+  <div *ngFor="let agendamento of agendamentos; let i = index" class="mb-4">
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Detalhes do Agendamento</h5>
+        <span class="badge" [ngClass]="{'bg-success': agendamento.status === 'Confirmado', 'bg-warning': agendamento.status === 'Pendente'}">
+          {{ agendamento.status || 'Confirmado' }}
+        </span>
+      </div>
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <strong>Nome Completo:</strong> {{ agendamento.nomeCompleto }}
+          </div>
+          <div class="col-md-6">
+            <strong>CPF:</strong> {{ agendamento.cpf }}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <strong>Data de Nasc.:</strong> {{ agendamento.dataNascimento  | date:'dd/MM/yyyy'}}
+          </div>
+          <div class="col-md-6">
+            <strong>Telefone:</strong> {{ agendamento.telefone }}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-12">
+            <strong>Endereço:</strong> {{ agendamento.endereco }}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-12">
+            <strong>Email:</strong> {{ agendamento.email }}
+          </div>
+        </div>
+        <hr>
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <strong>Especialidade:</strong> {{ agendamento.especialidade }}
+          </div>
+          <div class="col-md-6">
+            <strong>Médico:</strong> {{ agendamento.medico }}
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <strong>Hospital:</strong> {{ agendamento.hospital }}
+          </div>
+          <div class="col-md-6">
+            <strong>Hora Marcada:</strong> {{ agendamento.horaMarcada }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <strong>Data do Agendamento:</strong> {{ agendamento.dataAgendamento | date:'dd/MM/yyyy' }}
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-muted d-flex justify-content-between align-items-center">
+        <span>Agendado em: {{ agendamento.dataCriacaoAgendamento | date:'dd/MM/yyyy HH:mm' }}</span>
+        <div>
+          <button class="btn btn-outline-info btn-sm me-2">Detalhes</button>
+          <button class="btn btn-outline-danger btn-sm" (click)="cancelarAgendamento(i)">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

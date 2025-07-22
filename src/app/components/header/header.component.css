@@ -1,0 +1,17 @@
+
+.navbar-brand .bi {
+  vertical-align: middle;
+}
+
+.nav-link.text-white-50:hover {
+  color: white !important;
+}
+
+.nav-link {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #F5F5DC !important;  
+  transform: scale(1.05);     
+}

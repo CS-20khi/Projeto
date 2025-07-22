@@ -1,0 +1,47 @@
+<div class="container my-4 d-flex justify-content-center">
+  <div
+    id="carouselExampleAutoplaying"
+    class="carousel slide w-100"
+    style="max-width: 500px;"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-indicators">
+      <button
+        type="button"
+        data-bs-target="#carouselExampleAutoplaying"
+        [attr.data-bs-slide-to]="i"
+        [class.active]="i === 0"
+        [attr.aria-current]="i === 0 ? 'true' : null"
+        [attr.aria-label]="'Slide ' + (i + 1)"
+        *ngFor="let item of carouselItems; let i = index"
+      ></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div
+        class="carousel-item"
+        [class.active]="i === 0"
+        *ngFor="let item of carouselItems; let i = index"
+      >
+        <img
+          [src]="item.imageUrl"
+          class="d-block w-100 carousel-img"
+          [alt]="item.altText"
+        >
+        <div class="carousel-caption d-none d-md-block text-center bg-dark bg-opacity-50 p-3 rounded">
+          <h3 class="fw-bold">{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Próximo</span>
+    </button>
+  </div>
+</div>
