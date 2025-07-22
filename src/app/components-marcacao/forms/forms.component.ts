@@ -23,6 +23,7 @@ interface FormData {
 interface Medico {
   id: string;
   nome: string;
+  genero: 'masculino' | 'feminino'; 
   especialidadeId: string;
 }
 
@@ -57,12 +58,28 @@ export class FormsComponent implements OnInit {
   };
 
   private todosOsMedicos: Medico[] = [
-    { id: 'Dra. Maria Oliveira', nome: 'Dra. Maria Oliveira', especialidadeId: 'Clinico Geral' },
-    { id: 'Dr. Pedro Souza', nome: 'Dr. Pedro Souza', especialidadeId: 'Cardiologista' },
-    { id: 'Dra. Ana Costa', nome: 'Dra. Ana Costa', especialidadeId: 'Exames de sangue' },
-    { id: 'Dr. Carlos Santos', nome: 'Dr. Carlos Santos', especialidadeId: 'Ultrassonografia' },
-    { id: 'Dra. Laura Mendes', nome: 'Dra. Laura Mendes', especialidadeId: 'Ortodontia' },
-    { id: 'Dr. Gabriel Ferreira', nome: 'Dr. Gabriel Ferreira', especialidadeId: 'Clinico Geral Odontologia' }
+    { id: 'Dra. Maria Oliveira', nome: 'Dra. Maria Oliveira', genero: 'feminino', especialidadeId: 'Clinico Geral' },
+    { id: 'Dr. Carlos Silva', nome: 'Dr. Carlos Silva', genero: 'masculino', especialidadeId: 'Clinico Geral' },
+    
+    
+    { id: 'Dra. Ana Souza', nome: 'Dra. Ana Souza', genero: 'feminino', especialidadeId: 'Cardiologista' },
+    { id: 'Dr. Pedro Santos', nome: 'Dr. Pedro Santos', genero: 'masculino', especialidadeId: 'Cardiologista' },
+    
+    
+    { id: 'Dra. Juliana Costa', nome: 'Dra. Juliana Costa', genero: 'feminino', especialidadeId: 'Exames de sangue' },
+    { id: 'Dr. Roberto Almeida', nome: 'Dr. Roberto Almeida', genero: 'masculino', especialidadeId: 'Exames de sangue' },
+    
+   
+    { id: 'Dra. Fernanda Lima', nome: 'Dra. Fernanda Lima', genero: 'feminino', especialidadeId: 'Ultrassonografia' },
+    { id: 'Dr. Marcelo Oliveira', nome: 'Dr. Marcelo Oliveira', genero: 'masculino', especialidadeId: 'Ultrassonografia' },
+    
+    
+    { id: 'Dra. Patrícia Mendes', nome: 'Dra. Patrícia Mendes', genero: 'feminino', especialidadeId: 'Ortodontia' },
+    { id: 'Dr. Gustavo Ferreira', nome: 'Dr. Gustavo Ferreira', genero: 'masculino', especialidadeId: 'Ortodontia' },
+    
+    
+    { id: 'Dra. Camila Rodrigues', nome: 'Dra. Camila Rodrigues', genero: 'feminino', especialidadeId: 'Clinico Geral Odontologia' },
+    { id: 'Dr. Lucas Pereira', nome: 'Dr. Lucas Pereira', genero: 'masculino', especialidadeId: 'Clinico Geral Odontologia' }
   ];
 
   medicosDisponiveis: Medico[] = [];
@@ -108,57 +125,58 @@ export class FormsComponent implements OnInit {
   }
 
   onEspecialidadeChange(): void {
-    this.formData.medico = ''; 
-    const especialidadeMap: { [key: string]: string } = {
-      'Clinico Geral': 'Clinico Geral',
-      'Cardiologista': 'Cardiologista',
-      'Exames de sangue': 'Exames de sangue',
-      'Ultrassonografia': 'Ultrassonografia',
-      'Ortodontia': 'Ortodontia',
-      'Clinico Geral Odontologia': 'Clinico Geral Odontologia'
-    };
+  this.formData.medico = ''; 
+  
+  
+  if (this.formData.especialidade) {
+    this.medicosDisponiveis = this.todosOsMedicos.filter(
+      medico => medico.especialidadeId === this.formData.especialidade
+    );
     
-    const especialidadeSelecionadaId = especialidadeMap[this.formData.especialidade];
-
-    if (especialidadeSelecionadaId) {
-      this.medicosDisponiveis = this.todosOsMedicos.filter(
-        medico => medico.especialidadeId === especialidadeSelecionadaId
-      );
-    } else {
+    
+    if (this.medicosDisponiveis.length > 2) {
+      
+      const medicoHomem = this.medicosDisponiveis.find(m => m.genero === 'masculino');
+      const medicoMulher = this.medicosDisponiveis.find(m => m.genero === 'feminino');
+      
       this.medicosDisponiveis = [];
+      if (medicoHomem) this.medicosDisponiveis.push(medicoHomem);
+      if (medicoMulher) this.medicosDisponiveis.push(medicoMulher);
     }
+  } else {
+    this.medicosDisponiveis = [];
   }
+}
 
-  onSubmit(): void {
-    this.agendamentoForm.control.markAllAsTouched();
+onSubmit(): void {
+  this.agendamentoForm.control.markAllAsTouched();
 
-    if (this.agendamentoForm.valid) {
-      console.log('Formulário válido e termo aceito!', this.formData); 
+  if (this.agendamentoForm.valid) {
+    
+    const medicoSelecionado = this.todosOsMedicos.find(m => m.id === this.formData.medico);
+    
+    const novoAgendamento: Agendamento = {
+      nomeCompleto: this.formData.nomeCompleto,
+      cpf: this.formData.cpf,
+      dataNascimento: this.formData.dataNascimento,
+      endereco: this.formData.endereco,
+      telefone: this.formData.telefone,
+      email: this.formData.email,
+      especialidade: this.formData.especialidade,
+      medico: medicoSelecionado ? medicoSelecionado.nome : '', 
+      hospital: this.formData.hospital,
+      horaMarcada: this.formData.horaAgendamento,
+      dataAgendamento: this.formData.dataConsulta,
+      status: 'Confirmado',
+      dataCriacaoAgendamento: new Date()
+    };
 
-      const novoAgendamento: Agendamento = {
-        nomeCompleto: this.formData.nomeCompleto,
-        cpf: this.formData.cpf,
-        dataNascimento: this.formData.dataNascimento,
-        endereco: this.formData.endereco,
-        telefone: this.formData.telefone,
-        email: this.formData.email,
-        especialidade: this.formData.especialidade,
-        medico: this.formData.medico,
-        hospital: this.formData.hospital,
-        horaMarcada: this.formData.horaAgendamento, 
-        dataAgendamento: this.formData.dataConsulta, 
-        status: 'Confirmado',
-        dataCriacaoAgendamento: new Date()
-      };
-
-      
-      
-      this.agendamentoService.adicionar(novoAgendamento);
-      this.agendamentoForm.resetForm(); 
-      this.router.navigate(['/confirmacao']); 
-    } else {
-      console.log('Formulário inválido. Por favor, preencha todos os campos obrigatórios e aceite os termos.');
-      alert('Por favor, preencha todos os campos obrigatórios e aceite os termos para prosseguir.');
-    }
+    this.agendamentoService.adicionar(novoAgendamento);
+    this.agendamentoForm.resetForm();
+    this.router.navigate(['/confirmacao']);
+  } else {
+    console.log('Formulário inválido. Por favor, preencha todos os campos obrigatórios e aceite os termos.');
+    alert('Por favor, preencha todos os campos obrigatórios e aceite os termos para prosseguir.');
   }
+}
 }
