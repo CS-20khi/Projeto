@@ -1,0 +1,105 @@
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-success text-white text-center">
+          <h2>Cadastro de Usuário</h2>
+        </div>
+        <div class="card-body p-4">
+          <form (ngSubmit)="onSubmit(cadastroForm)" #cadastroForm="ngForm" novalidate>
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome Completo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nome"
+                name="nome"
+                [(ngModel)]="usuario.nome"
+                #nome="ngModel"
+                required
+                minlength="3"
+                maxlength="100"
+                [class.is-invalid]="nome.invalid && (nome.dirty || nome.touched)"
+              >
+              <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="invalid-feedback">
+                <div *ngIf="nome.errors?.['required']">Nome é obrigatório.</div>
+                <div *ngIf="nome.errors?.['minlength']">Nome deve ter no mínimo {{ nome.errors?.['minlength']?.requiredLength }} caracteres.</div>
+                <div *ngIf="nome.errors?.['maxlength']">Nome deve ter no máximo {{ nome.errors?.['maxlength']?.requiredLength }} caracteres.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                [(ngModel)]="usuario.email"
+                #email="ngModel"
+                required
+                email
+                [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+              >
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="invalid-feedback">
+                <div *ngIf="email.errors?.['required']">Email é obrigatório.</div>
+                <div *ngIf="email.errors?.['email']">Email inválido.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="senha" class="form-label">Senha</label>
+              <input
+                type="password"
+                class="form-control"
+                id="senha"
+                name="senha"
+                [(ngModel)]="usuario.senha"
+                #senha="ngModel"
+                required
+                minlength="6"
+                [class.is-invalid]="senha.invalid && (senha.dirty || senha.touched)"
+              >
+              <div *ngIf="senha.invalid && (senha.dirty || senha.touched)" class="invalid-feedback">
+                <div *ngIf="senha.errors?.['required']">Senha é obrigatória.</div>
+                <div *ngIf="senha.errors?.['minlength']">Senha deve ter no mínimo {{ senha.errors?.['minlength']?.requiredLength }} caracteres.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmarSenha"
+                name="confirmarSenha"
+                [(ngModel)]="usuario.confirmarSenha"
+                #confirmarSenha="ngModel"
+                required
+                [class.is-invalid]="confirmarSenha.invalid && (confirmarSenha.dirty || confirmarSenha.touched)"
+              >
+              <div *ngIf="confirmarSenha.invalid && (confirmarSenha.dirty || confirmarSenha.touched)" class="invalid-feedback">
+                <div *ngIf="confirmarSenha.errors?.['required']">Confirmação de senha é obrigatória.</div>
+              </div>
+              <div *ngIf="usuario.senha && usuario.confirmarSenha && usuario.senha !== usuario.confirmarSenha" class="text-danger mt-1">
+                Senhas não conferem.
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success btn-lg" [disabled]="cadastroForm.invalid || usuario.senha !== usuario.confirmarSenha">
+                Cadastrar
+              </button>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="cadastroSucesso" class="alert alert-success text-center m-4">
+          Usuário cadastrado com sucesso!
+        </div>
+        <div *ngIf="mensagemErro" class="alert alert-danger text-center m-4">
+          {{ mensagemErro }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

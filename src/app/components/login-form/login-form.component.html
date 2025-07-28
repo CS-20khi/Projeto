@@ -52,7 +52,9 @@
         <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3" role="alert">
           {{ errorMessage }}
         </div>
-
+        <div class="mt-3 text-center">
+            <p>Ainda não tem cadastro? <a routerLink="/cadastro">Cadastre-se</a></p>
+          </div>
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-success btn-lg">Entrar <i class="bi bi-box-arrow-in-right ms-2"></i></button>
         </div>

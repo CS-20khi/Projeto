@@ -5,6 +5,7 @@ import { Marcacao } from './pages/marcacao/marcacao';
 import { PerfilComponent } from './pages/perfil/perfil';
 import { AuthGuard } from './guards/auth-guard';
 import { ConfirmacaoComponent } from './components-marcacao/confirmacao/confirmacao';
+import { CadastroComponent } from './components/cadastro/cadastro.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -13,5 +14,7 @@ export const routes: Routes = [
   { path: 'confirmacao', component: ConfirmacaoComponent }, 
   { path: 'marcacao', component: Marcacao, canActivate: [AuthGuard] },
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'home' }
+  { path: 'cadastro', component: CadastroComponent },
+  { path: '**', redirectTo: 'home' },
+ 
 ];
